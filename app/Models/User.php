@@ -17,9 +17,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'pseudo',
         'email',
         'password',
+        'image'
     ];
 
     /**
@@ -43,5 +44,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // un user peut créer plusieurs posts
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    // un user peut créer plusieurs commentaires
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    // un user n'a qu'un rôle
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }
